@@ -32,9 +32,13 @@ request(url, (err, resp, body) => {
 			const name = d.address.substr(address.length + 1);
 			d.name=name;
 			tot = new B(tot).plus(d.hashes);
-		} else if (d.address === address) {
-			balance = new B(d.balance).dividedBy("1E12");
 		}
+
+		if (d.address === address) {
+			balance = new B(d.balance).plus(d.paid);
+			balance = balance.dividedBy("1E12");
+		}
+
 	});
 
 	const js = {};
